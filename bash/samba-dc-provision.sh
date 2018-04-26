@@ -61,6 +61,6 @@ options {
 	listen-on { any; };
 	tkey-gssapi-keytab "/usr/local/samba/bind-dns/dns.keytab";
 };
-	service bind9 restart
 EOF
+	service bind9 restart
 fi

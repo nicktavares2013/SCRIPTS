@@ -63,4 +63,23 @@ options {
 };
 EOF
 	service bind9 restart
+	ln -sf /usr/local/samba/lib/libnss_winbind.so.2 /lib/x86_64-linux-gnu/
+	ln -sf /lib/x86_64-linux-gnu/libnss_winbind.so.2 /lib/x86_64-linux-gnu/libnss_winbind.so
+	ldconfig
+cat << EOF > /etc/nsswitch.conf
+passwd:         compat winbind
+group:          compat winbind
+shadow:         compat
+gshadow:        files
+
+hosts:          files dns
+networks:       files
+
+protocols:      db files
+services:       db files
+ethers:         db files
+rpc:            db files
+
+netgroup:       nis
+EOF
 fi

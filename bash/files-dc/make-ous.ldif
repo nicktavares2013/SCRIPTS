@@ -1,0 +1,11 @@
+dn: ou=Usuarios,dc=dominio8,dc=lan
+ou: Usuarios
+objectClass: organizationalUnit
+
+dn: ou=Grupos,dc=dominio8,dc=lan
+ou: Grupos
+objectClass: organizationalUnit
+
+dn: ou=Servicos,dc=dominio8,dc=lan
+ou: Servicos
+objectClass: organizationalUnit

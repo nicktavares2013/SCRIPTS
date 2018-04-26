@@ -9,8 +9,8 @@ then
 fi
 
 	
-SAMDOM=dominio${Suffix}
-DOM="dominio${Suffix}.lan"
+SAMDOM="dominio${Suffix}.lan"
+DOM="dominio${Suffix}"
 if ! ls /etc/systemd/system/samba-ad-dc.service
 then
 	cat << EOF > /etc/systemd/system/samba-ad-dc.service
@@ -82,4 +82,6 @@ rpc:            db files
 
 netgroup:       nis
 EOF
+
+	service samba-ad-dc start
 fi

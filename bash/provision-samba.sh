@@ -1,6 +1,7 @@
 #!/bin/bash
 SAMBA_VERSION="4.8.1"
 URL="https://download.samba.org/pub/samba/stable"
+URL="http://172.16.2.2"
 Suffix=$1
 InfFILE="/etc/network/interfaces"
 Inf=( `ip -4 l | egrep enp[0-9]s[0-9] -o `)
@@ -50,7 +51,7 @@ apt-get install acl attr autoconf bind9utils bison build-essential \
 		  libpopt-dev libreadline-dev nettle-dev perl perl-modules pkg-config \
 		    python-all-dev python-crypto python-dbg python-dev python-dnspython \
 		      python3-dnspython python-gpgme python3-gpgme python-markdown python3-markdown \
-		        python3-dev xsltproc zlib1g-dev -y 
+		        python3-dev xsltproc zlib1g-dev bind9 -y 
 
 if ! ls /usr/src/samba-${SAMBA_VERSION}.tar.gz 
 then
@@ -65,7 +66,7 @@ then
 	./configure
 	make
 	make install
-	echo "export \$PATH:/usr/local/samba/sbin:/usr/local/samba/bin" > /etc/profile.d/samba4.sh
+	echo "export PATH=\$PATH:/usr/local/samba/sbin:/usr/local/samba/bin" > /etc/profile.d/samba4.sh
 	chmod +x /etc/profile.d/samba4.sh
 fi
 reboot

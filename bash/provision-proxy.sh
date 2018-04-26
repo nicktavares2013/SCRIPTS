@@ -23,7 +23,7 @@ iface ${Inf[1]} inet static
 address 10.$Suffix.0.254
 netmask 255.255.255.0
 EOF
-cat << EOF /etc/ssh/sshd_config
+cat << EOF > /etc/ssh/sshd_config
 PermitRootLogin yes
 ChallengeResponseAuthentication no
 UsePAM yes

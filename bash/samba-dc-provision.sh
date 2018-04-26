@@ -84,4 +84,9 @@ netgroup:       nis
 EOF
 
 	service samba-ad-dc start
+	cat << EOF > /etc/resolv.conf
+domain dominio${Suffix}.lan
+search dominio${Suffix}.lan
+nameserver 127.0.0.1
+EOF
 fi

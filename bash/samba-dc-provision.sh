@@ -34,7 +34,7 @@ fi
 # Provision 
 if ! ls /usr/local/samba/private/sam.tdb
 then
-	samba-tool domain provision --domain $DOM --realm $SAMDOM --use-rfc2307 --adminpass=${PASS} --dns-backend=BIND9_DLZ
+	samba-tool domain provision --domain=${DOM} --realm $SAMDOM --use-rfc2307 --adminpass=${PASS} --dns-backend=BIND9_DLZ
 	rm -f /etc/krb5.conf
 	ln -sf /usr/local/samba/private/krb5.conf /etc/krb5.conf
 	mkdir /etc/samba
@@ -50,7 +50,7 @@ EOF
 include "/etc/bind/named.conf.options";
 include "/etc/bind/named.conf.local";
 include "/etc/bind/named.conf.default-zones";
-include "/usr/local/samba/private/named.conf";
+include "/usr/local/samba/bind-dns/named.conf";
 EOF
 
 	cat << EOF > /etc/bind/named.conf.options
@@ -59,9 +59,8 @@ options {
 	dnssec-validation auto;
 	auth-nxdomain no;    # conform to RFC1035
 	listen-on { any; };
-	tkey-gssapi-keytab "/usr/local/samba/private/dns.keytab";
+	tkey-gssapi-keytab "/usr/local/samba/bind-dns/dns.keytab";
 };
+	service bind9 restart
 EOF
-	chmod 640 /usr/local/samba/private/dns.keytab
-	chown root:bind /usr/local/samba/private/dns.keytab
 fi
